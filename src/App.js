@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+// React is loaded and is available as React and ReactDOM
+// imports should NOT be used
+import React, { useState } from "react";
+const App = () => {
+  return <List items={["A", "B", "C"]} />;
+};
+const List = ({ items }) => {
+  // Yоur cоdе gоеs hеrе
+  const [list, setList] = useState(items);
+  const handleClick = (clickedItem) => {
+    console.log(clickedItem);
+    let tempList = items.filter((item) => {
+      return item != clickedItem;
+    });
+    setList([clickedItem, ...tempList]);
+    console.log(tempList);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ul>
+      {list.map((item, i) => {
+        return (
+          <li onClick={() => handleClick(item)} key={i}>
+            {item}
+          </li>
+        );
+      })}
+    </ul>
   );
-}
+};
 
 export default App;
